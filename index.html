@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta charset="utf-8" />
+    <title>AFrame Dungeon</title>
+    <script src="js/aframe-master.js"></script>
+    <script src="js/handleEvents.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/movement.js"></script>
+    <script src="js/enemy.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/aframe-physics-system.min.js"></script>
+    <script src="js/aframe-extras.min.js"></script>
+  </head>
+  <body class="a-body">
+    <a-scene debug="" physics="debug: true" class="fullscreen" canvas="" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="" auto-enter-vr="">
+      <a-assets>
+        <img id="floorImg" src="https://aframe.io/sample-assets/assets/images/terrain/grasslight-big.jpg" crossorigin="true">
+      	<img id="ghost" src="https://ucarecdn.com/f6bf9fe3-82b4-43ba-b5b6-a7e308b64c77/" crossorigin="anonymous">
+      </a-assets>
+
+      <!-- Teleport System Spheres -->
+      <a-entity id="blueTPSphere" static-movement geometry="primitive:sphere;radius:0.2" material="color:blue;roughness:1" position="1.526 2.884 -5.2"></a-entity>
+      <a-entity id="blueTPSphere-2" static-movement geometry="primitive:sphere;radius:0.2" material="color:blue;roughness:1" position="1.464 2.884 7.124"></a-entity>
+      <a-entity id="blueTPSphere-3" static-movement  geometry="primitive:sphere;radius:0.2" material="color:blue;roughness:1" position="-5.077 2.884 7.124"></a-entity>
+      <a-entity id="blueTPSphere-4" static-movement  geometry="primitive:sphere;radius:0.2" material="color:blue;roughness:1" position="5.395 2.884 7.124"></a-entity>
+
+      <!-- Walls -->
+      <a-box id="wall_1" color="grey" width="15" height="5" depth="1" position="-0.215 2.5 10.025" material="src:https://ucarecdn.com/3336cb05-b8f8-4836-b3f8-91b13e448d0c/" static-body></a-box>
+      <a-box id="wall_2" color="grey" width="15" height="5" depth="1" position="-0.215 2.5 -10.794" material="src:https://ucarecdn.com/3336cb05-b8f8-4836-b3f8-91b13e448d0c/" static-body></a-box>
+      <a-box id="wall_3" color="grey" width="15" height="5" depth="1" position="3.731 2.5 -2.734" material="src:https://ucarecdn.com/3336cb05-b8f8-4836-b3f8-91b13e448d0c/" rotation="0 90 0" static-body></a-box>
+      <a-box id="wall_4" color="grey" width="15" height="5" depth="1" position="-0.949 2.5 -2.761" material="src:https://ucarecdn.com/3336cb05-b8f8-4836-b3f8-91b13e448d0c/" rotation="0 90 0" static-body></a-box>
+      <a-box id="wall_5" color="grey" width="10" height="5" depth="1" position="-5.465 2.5 4.268" material="src:https://ucarecdn.com/3336cb05-b8f8-4836-b3f8-91b13e448d0c/" static-body></a-box>
+      <a-box id="wall_6" color="grey" width="10" height="5" depth="1" position="8.246 2.5 4.268" material="src:https://ucarecdn.com/3336cb05-b8f8-4836-b3f8-91b13e448d0c/" static-body></a-box>
+      <a-box id="wall_7" color="grey" width="7" height="5" depth="1" position="7.545 2.5 6.966" material="src:https://ucarecdn.com/3336cb05-b8f8-4836-b3f8-91b13e448d0c/" static-body rotation="0 90 0">
+      </a-box>
+      <a-box id="wall_8" color="grey" width="7" height="5" depth="1" position="-7.263 2.5 6.966" material="src:https://ucarecdn.com/3336cb05-b8f8-4836-b3f8-91b13e448d0c/" static-body rotation="0 90 0">
+      </a-box>
+
+      <!-- Floor. -->
+      <a-entity id="floor" static-body geometry="depth:100;height:0.2;width:100;" material="repeat:50 20;color:#fafafa;metalness:0.2;roughness:0.1;src:https://ucarecdn.com/8a2780f7-e076-4f8c-bd1d-40ae172508a9/"></a-entity>
+
+      <!-- Lights. -->
+      <a-entity id="pointLight" light="angle:0;intensity:1.4;type:hemisphere" position="0 19.399 2.231"></a-entity>
+
+      <!-- Camera. -->
+      <a-entity camera id="player" player="health: 200" userHeight="1.6" universal-controls kinematic-body="radius:0.5" position="2.5959079637541276 2 2.5997954491389805">
+      	<a-entity position="-0.995 0.662 -1.633" material="color:red" geometry="primitive:plane;height:3;width:7" text="align:center;color:#322342;value:HP;width:50" id="text-health-player" scale="0.1 0.1 0.1"></a-entity>
+      	<a-entity cursor position="0 0 -0.5" geometry="primitive:ring;radiusInner:0.01;radiusOuter:0.016" material="opacity:0.5;shader:flat;transparent:true;color:#ff9" scale="0.8 0.8 0.8" raycaster ></a-entity>
+      </a-entity>
+
+      <a-sky color="#3c3c3c"></a-sky>
+
+      <!-- Enemies -->
+      <a-entity position="1.351 0 0" scale="0.1 0.1 0.1" id="Ghost01" static-body="shape: box" enemy="health: 30; id: 1" obj-model="obj:resources/ghost.obj" material="src:https://ucarecdn.com/f6bf9fe3-82b4-43ba-b5b6-a7e308b64c77/">
+
+	    <!-- Bounding Box -->
+	    <a-box width="15" height="5" depth="3" position="0 0 0" static-body visible="false"></a-box>
+
+      	<!-- Animation -->
+      	<a-animation attribute="position" to="1.351 0.1 0" direction="alternate-reverse" repeat="indefinite" easing="linear" dur="1000"></a-animation>
+
+	    <!-- UI -->
+	    <a-entity position="2 10 10" id="1-ui">
+	    	<a-entity position="0 10 0" material="color: red" geometry="primitive:plane; width: 7; height: 3;" text="align:center;value:HP;width:50;color:#322342" id="text-health-1"></a-entity>
+
+	    	<a-entity position="-10 -2 0" material="color: lightgrey" geometry="primitive:plane; width: 7; height: 3;" attack-button="targetEntity: #Ghost01" text="align:center;value:Attack;width:50;color:#322342" id="text-attack-1"></a-entity>
+
+	      	<a-entity position="0 -2 0" material="color: lightgrey" geometry="primitive:plane; width: 7; height: 3;" text="align:center;value:Defend;width:50;color:#322342" id="text-defend-1"></a-entity>
+
+	     	<a-entity position="10 -2 0" material="color: lightgrey" geometry="primitive:plane; width: 7; height: 3;" text="align:center;value:Evade;width:50;color:#322342" id="text-evade-1"></a-entity>
+	    </a-entity>
+	  </a-entity>
+    </a-scene>
+
+    
+
+    <!-- Github Corner. -->
+    <a style="display: none;" href="blob:http://localhost:3333/4af09b7e-7741-411c-a7bd-6cde2058da2f" download="localhost-3333-voxel-dungeon"></a><textarea readonly="" style="font-size: 12pt; border: 0px; padding: 0px; margin: 0px; position: absolute; left: -9999px; top: 0px;"></textarea></body></html>
