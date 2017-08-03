@@ -5,6 +5,7 @@ AFRAME.registerComponent('player', {
   },
   init: function () {
     var el = this.el;
+    el.components.sound.playSound();
   },
 
    tick: function () {

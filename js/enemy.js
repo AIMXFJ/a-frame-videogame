@@ -24,6 +24,7 @@ AFRAME.registerComponent('enemy', {
   },
 
    reduceHealth: function (damage) {
+    this.el.components.sound.playSound();
     this.attackPlayer(this.randomDamage(1,3));
     if(this.data.health > 0)
       this.data.health -= damage;
