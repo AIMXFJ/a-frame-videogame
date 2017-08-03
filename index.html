@@ -3,6 +3,7 @@
     <title>AFrame Dungeon</title>
     <script src="js/aframe-master.js"></script>
     <script src="js/handleEvents.js"></script>
+    <script src="js/animations.js"></script>
     <script src="js/movement.js"></script>
     <script src="js/enemy.js"></script>
     <script src="js/player.js"></script>
@@ -12,8 +13,9 @@
   <body class="a-body">
     <a-scene debug="" physics="debug: true" class="fullscreen" canvas="" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="" auto-enter-vr="">
       <a-assets>
-        <img id="floorImg" src="https://aframe.io/sample-assets/assets/images/terrain/grasslight-big.jpg" crossorigin="true">
       	<img id="ghost" src="https://ucarecdn.com/f6bf9fe3-82b4-43ba-b5b6-a7e308b64c77/" crossorigin="anonymous">
+      	<audio id="bg_music" src="resources/bg_music.mp3" preload="auto"></audio>
+      	<audio id="fx_punch" src="resources/fx_punch.mp3" preload="auto"></audio>
       </a-assets>
 
       <!-- Teleport System Spheres -->
@@ -41,18 +43,29 @@
       <a-entity id="pointLight" light="angle:0;intensity:1.4;type:hemisphere" position="0 19.399 2.231"></a-entity>
 
       <!-- Camera. -->
-      <a-entity camera id="player" player="health: 200" userHeight="1.6" universal-controls kinematic-body="radius:0.5" position="2.5959079637541276 2 2.5997954491389805">
+      <a-entity sound="src:#bg_music; autoplay:true; loop:true; volume:0.05" camera id="player" player="health: 200" userHeight="1.6" universal-controls kinematic-body="radius:0.5" position="2.5959079637541276 2 2.5997954491389805">
+
+      	<!-- BG Music -->
+        <a-entity sound="src:#bg_music"></a-entity>
+
+      	<!-- HP Interface -->
       	<a-entity position="-0.995 0.662 -1.633" material="color:red" geometry="primitive:plane;height:3;width:7" text="align:center;color:#322342;value:HP;width:50" id="text-health-player" scale="0.1 0.1 0.1"></a-entity>
+
+      	<!-- Cursor -->
       	<a-entity cursor position="0 0 -0.5" geometry="primitive:ring;radiusInner:0.01;radiusOuter:0.016" material="opacity:0.5;shader:flat;transparent:true;color:#ff9" scale="0.8 0.8 0.8" raycaster ></a-entity>
       </a-entity>
 
+      <!-- Sky -->
       <a-sky color="#3c3c3c"></a-sky>
 
       <!-- Enemies -->
-      <a-entity position="1.351 0 0" scale="0.1 0.1 0.1" id="Ghost01" static-body="shape: box" enemy="health: 30; id: 1" obj-model="obj:resources/ghost.obj" material="src:https://ucarecdn.com/f6bf9fe3-82b4-43ba-b5b6-a7e308b64c77/">
+      <a-entity sound="src:#fx_punch; poolSize:5" position="1.351 0 0" scale="0.1 0.1 0.1" id="Ghost01" static-body="shape: box" enemy="health: 30; id: 1" obj-model="obj:resources/ghost.obj" material="src:https://ucarecdn.com/f6bf9fe3-82b4-43ba-b5b6-a7e308b64c77/">
 
 	    <!-- Bounding Box -->
 	    <a-box width="15" height="5" depth="3" position="0 0 0" static-body visible="false"></a-box>
+
+	    <!-- Punch Sound -->
+        <a-entity sound="src:#fx_punch"></a-entity>
 
       	<!-- Animation -->
       	<a-animation attribute="position" to="1.351 0.1 0" direction="alternate-reverse" repeat="indefinite" easing="linear" dur="1000"></a-animation>
