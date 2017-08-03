@@ -16,13 +16,17 @@
       	<img id="ghost" src="https://ucarecdn.com/f6bf9fe3-82b4-43ba-b5b6-a7e308b64c77/" crossorigin="anonymous">
       	<audio id="bg_music" src="resources/bg_music.mp3" preload="auto"></audio>
       	<audio id="fx_punch" src="resources/fx_punch.mp3" preload="auto"></audio>
+      	<audio id="fx_teleport" src="resources/fx_teleport.mp3" preload="auto"></audio>
       </a-assets>
 
+      <!-- Teleport Sound -->
+      <a-entity sound="src:#fx_teleport"></a-entity>
+
       <!-- Teleport System Spheres -->
-      <a-entity id="blueTPSphere" static-movement geometry="primitive:sphere;radius:0.2" material="color:blue;roughness:1" position="1.526 2.884 -5.2"></a-entity>
-      <a-entity id="blueTPSphere-2" static-movement geometry="primitive:sphere;radius:0.2" material="color:blue;roughness:1" position="1.464 2.884 7.124"></a-entity>
-      <a-entity id="blueTPSphere-3" static-movement  geometry="primitive:sphere;radius:0.2" material="color:blue;roughness:1" position="-5.077 2.884 7.124"></a-entity>
-      <a-entity id="blueTPSphere-4" static-movement  geometry="primitive:sphere;radius:0.2" material="color:blue;roughness:1" position="5.395 2.884 7.124"></a-entity>
+      <a-entity id="blueTPSphere" sound="src:#fx_teleport; poolSize:5; volume:0.2" static-movement geometry="primitive:sphere;radius:0.2" material="color:blue;roughness:1" position="1.526 2.884 -5.2"></a-entity>
+      <a-entity id="blueTPSphere-2" sound="src:#fx_teleport; poolSize:5; volume:0.2" static-movement geometry="primitive:sphere;radius:0.2" material="color:blue;roughness:1" position="1.464 2.884 7.124"></a-entity>
+      <a-entity id="blueTPSphere-3" sound="src:#fx_teleport; poolSize:5; volume:0.2" static-movement  geometry="primitive:sphere;radius:0.2" material="color:blue;roughness:1" position="-5.077 2.884 7.124"></a-entity>
+      <a-entity id="blueTPSphere-4" sound="src:#fx_teleport; poolSize:5; volume:0.2" static-movement  geometry="primitive:sphere;radius:0.2" material="color:blue;roughness:1" position="5.395 2.884 7.124"></a-entity>
 
       <!-- Walls -->
       <a-box id="wall_1" color="grey" width="15" height="5" depth="1" position="-0.215 2.5 10.025" material="src:https://ucarecdn.com/3336cb05-b8f8-4836-b3f8-91b13e448d0c/" static-body></a-box>
